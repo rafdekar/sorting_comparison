@@ -47,6 +47,8 @@ class SortFrame extends JFrame implements ItemListener
 	JCheckBox InsertionSort;
 	JCheckBox SelectionSort;
 	
+	Sorter sorter = new Sorter();
+	
 	SortFrame()
 	{
 		setSize( DEFAULT_WIDTH, DEFAULT_HEIGHT );
@@ -92,7 +94,12 @@ class SortFrame extends JFrame implements ItemListener
 	{
 		public void actionPerformed( ActionEvent event )
 		{
-			
+			for( int i = 0; i < resmodel.getSize(); i++ )
+			{
+				String temp = (String) resmodel.getElementAt(i);
+				String res = sorter.sortTime( temp );
+				resmodel.setElementAt( res, i );
+			}
 		}
 	}
 	

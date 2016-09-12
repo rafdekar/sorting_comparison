@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Sorter
 {
-	private static final int size = 100;
+	private static final int size = 10000;
 	private int[] randoms;
 	Sorter()
 	{
@@ -15,12 +15,12 @@ public class Sorter
 	
 	public String sortTime( String sorttype )
 	{
-		if( sorttype == "BubbleSort" )
-			return Float.toString( bubbleSort() );
-		else if( sorttype == "InsertionSort" )
-			return Float.toString( insertionSort() );
-		else if( sorttype == "SelectionSort" )
-			return Float.toString( selectionSort() );
+		if( sorttype == "Bubble Sort: " )
+			return sorttype + Float.toString( bubbleSort() ) + " seconds";
+		else if( sorttype == "Insertion Sort: " )
+			return sorttype + Float.toString( insertionSort() ) + " seconds";
+		else if( sorttype == "Selection Sort: " )
+			return sorttype + Float.toString( selectionSort() ) + " seconds";
 		else return "";
 	}
 	
@@ -30,10 +30,10 @@ public class Sorter
 		boolean swap = true;
 		long time = System.currentTimeMillis();
 		
-		while( swap = true )
+		while( swap == true )
 		{
 			swap = false;
-			for( int i = 0; i < tempArr.length; i++ )
+			for( int i = 0; i < tempArr.length-1; i++ )
 				if( tempArr[i] > tempArr[i+1] )
 				{
 					int temp = tempArr[i];
