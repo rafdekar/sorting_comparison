@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class SelectionSort
 {
-	int[] randoms;
-	int n;
+	private int[] randoms;
+	private int n;
 	
 	SelectionSort( int[] randoms )
 	{
