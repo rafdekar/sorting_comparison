@@ -1,11 +1,10 @@
 package SortCalc;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class Sorter
 {
-	private static final int size = 10000;
+	private static final int size = 100010;
 	private int[] randoms;
 	Sorter()
 	{

@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 public class BubbleSort
 {
-	int[] randoms;
-	boolean swap;
-	int n;
+	private int[] randoms;
+	private boolean swap;
+	private int n;
 	
 	BubbleSort( int[] randoms )
 	{
