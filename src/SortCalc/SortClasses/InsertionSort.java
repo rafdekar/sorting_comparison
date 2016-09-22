@@ -1,26 +1,21 @@
-package SortCalc;
+package SortCalc.SortClasses;
 
-import java.util.Arrays;
-
-public class InsertionSort
+public class InsertionSort extends Sort
 {
-	private int[] randoms;
-	private int n;
-	
-	InsertionSort( int[] randoms )
+	public InsertionSort( int[] randoms )
 	{
-		this.randoms = Arrays.copyOf( randoms, randoms.length );
-		n = randoms.length;
+		super( randoms );
 	}
+
 	public float sort()
 	{
-		int[] tempArr = Arrays.copyOf( randoms, randoms.length );
+		int n = getArr().length;
 		long time = System.currentTimeMillis();
 		
 		for( int i = 0; i < n-1; i++ )
         {
-            int pos = find( randoms, i, randoms[i+1] );
-            move( randoms, pos, i+1, randoms[i+1] );
+            int pos = find( getArr(), i, getArr()[i+1] );
+            move( getArr(), pos, i+1, getArr()[i+1] );
         }
 		
 		return (System.currentTimeMillis() - time)/1000f;
