@@ -1,12 +1,12 @@
-package SortCalc;
+package SortCalc.SortClasses;
 
 import java.util.Random;
 
 public class Sorter
 {
-	private static final int size = 100010;
+	private static final int size = 100;
 	private int[] randoms;
-	Sorter()
+	public Sorter()
 	{
 		Random rand = new Random();
 		randoms = rand.ints( size ).toArray();
@@ -21,5 +21,12 @@ public class Sorter
 		else if( sorttype.charAt(0) == 'S' )
 			return "Selection Sort: " + Float.toString( new SelectionSort( randoms ).sort() ) + " seconds";
 		else return "";
+	}
+	
+	public void drawArray( int size, int seed )
+	{
+		Random rand = new Random();
+		rand.setSeed( seed );
+		randoms = rand.ints( size ).toArray();
 	}
 }
