@@ -13,7 +13,7 @@ public abstract class Sort
 	
 	public abstract float sort();
 	
-	public int[] getArr()
+	public static int[] getArr()
 	{
 		return randoms;
 	}
