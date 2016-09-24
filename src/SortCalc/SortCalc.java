@@ -12,12 +12,14 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import SortCalc.SortClasses.Sort;
 import SortCalc.SortClasses.Sorter;
 
 public class SortCalc
@@ -55,10 +57,11 @@ class SortFrame extends JFrame implements ItemListener
 	
 	Sorter sorter = new Sorter();
 	
-	//Reading files
-	FileOpener bubbleCode = new FileOpener( "BubbleSort" );
-	FileOpener insertionCode = new FileOpener( "InsertionSort" );
-	FileOpener selectionCode = new FileOpener( "SelectionSort" );
+	JTextArea generatedArrayField;
+	JTextArea sortedArrayField;
+	
+	JTextField SeedField;
+	JTextField QuantityField;
 	
 	SortFrame()
 	{
@@ -103,15 +106,16 @@ class SortFrame extends JFrame implements ItemListener
 		GenPanel.setBorder( GenPanTitle );
 		
 
-		JTextField SeedField = new JTextField();
+		SeedField = new JTextField();
 		Border SeedFieldTitle = BorderFactory.createTitledBorder( ChPanEtched, "Enter seed" );
 		SeedField.setBorder( SeedFieldTitle );
 		
-		JTextField QuantityField = new JTextField();
+		QuantityField = new JTextField();
 		Border QuantityFieldTitle = BorderFactory.createTitledBorder( ChPanEtched, "Enter array size" );
 		QuantityField.setBorder( QuantityFieldTitle );
 		
 		JButton GenerateButton = new JButton( "Generate" );
+		GenerateButton.addActionListener( new GenerateAction() );
 
 		GenPanel.add( SeedField );
 		GenPanel.add( QuantityField );
@@ -131,20 +135,44 @@ class SortFrame extends JFrame implements ItemListener
 		Border GenArrTitle = BorderFactory.createTitledBorder( ChPanEtched, "Generated array" );
 		Border SortArrTitle = BorderFactory.createTitledBorder( ChPanEtched, "Sorted array" );
 		
-		JTextArea generatedArrayField = new JTextArea();
-		generatedArrayField.setBorder( GenArrTitle );
-		generatedArrayField.setEnabled(false);
+		generatedArrayField = new JTextArea();
+		generatedArrayField.setEditable(false);
+		JScrollPane generatedArrayFieldSc = new JScrollPane( generatedArrayField );
+		generatedArrayFieldSc.setBorder( GenArrTitle );
 		
-		JTextArea sortedArrayField = new JTextArea();
-		sortedArrayField.setBorder( SortArrTitle );
-		sortedArrayField.setEnabled(false);
+		sortedArrayField = new JTextArea();
+		sortedArrayField.setEditable(false);
+		JScrollPane sortedArrayFieldSc = new JScrollPane( sortedArrayField );
+		sortedArrayFieldSc.setBorder( SortArrTitle );
 		
-		
-		rightPanel.add( generatedArrayField );
-		rightPanel.add( sortedArrayField );
+		rightPanel.add( generatedArrayFieldSc );
+		rightPanel.add( sortedArrayFieldSc );
 		
 		add(leftPanel);
 		add(rightPanel);
+	}
+	
+	class GenerateAction implements ActionListener
+	{
+		public void actionPerformed( ActionEvent event )
+		{
+			String seed = SeedField.getText();
+			String size = QuantityField.getText();
+			try
+			{
+				int seedInt = Integer.parseInt( seed );
+				int sizeInt = Integer.parseInt( size );
+				if( seedInt > 0 && sizeInt > 0 )
+				{
+					sorter.drawArray( sizeInt, seedInt );
+					writeGenArr();			
+				} else JOptionPane.showMessageDialog(null, "Only numbers > 0" );
+			}
+			catch( NumberFormatException e )
+			{
+				JOptionPane.showMessageDialog(null, "Wrong input (max value = " + Integer.MAX_VALUE + ")" );
+			}
+		}
 	}
 	
 	class SortAction implements ActionListener
@@ -154,9 +182,10 @@ class SortFrame extends JFrame implements ItemListener
 			for( int i = 0; i < resmodel.getSize(); i++ )
 			{
 				String temp = (String) resmodel.getElementAt(i);
-				String res = sorter.sortTime( temp );
-				resmodel.setElementAt( res, i );
+				String result = sorter.sortTime( temp );
+				resmodel.setElementAt( result, i );
 			}
+			writeSortArr();
 		}
 	}
 	
@@ -194,5 +223,21 @@ class SortFrame extends JFrame implements ItemListener
 				return i;
 		}
 		return 0;
+	}
+	
+	public void writeGenArr()
+	{
+		String temp = "";
+		for( int i = 0; i < sorter.getRandoms().length; i++ )
+			temp += sorter.getRandoms()[i] + "\n";
+		generatedArrayField.setText( temp );
+	}
+	
+	public void writeSortArr()
+	{
+		String temp = "";
+		for( int i = 0; i < Sort.getArr().length; i++ )
+			temp += Sort.getArr()[i] + "\n";
+		sortedArrayField.setText( temp );
 	}
 }

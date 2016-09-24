@@ -14,7 +14,7 @@ public class SelectionSort extends Sort
 		
 		while( n > 1 )
 		{
-			int T = 0;
+			int T = Integer.MIN_VALUE;
 			int pos = 0;
 			for( int i = 0; i < n; i++ )
 				if( getArr()[i] > T )
