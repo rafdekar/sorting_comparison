@@ -93,8 +93,9 @@ class SortFrame extends JFrame implements ItemListener
 		//Making list with results
 		resmodel = new DefaultListModel<String>();
 		results = new JList<String>( resmodel );
+		JScrollPane resultsSc = new JScrollPane( results );
 		Border ResListTitle = BorderFactory.createTitledBorder( ChPanEtched, "Results" );
-		results.setBorder( ResListTitle );
+		resultsSc.setBorder( ResListTitle );
 		
 		//Making "Sort" button
 		JButton SortButton = new JButton( "Sort" );
@@ -127,7 +128,7 @@ class SortFrame extends JFrame implements ItemListener
 		leftPanel.add(GenPanel);
 		leftPanel.add(ChoicePanel);
 		leftPanel.add(SortButton);
-		leftPanel.add(results);
+		leftPanel.add(resultsSc);
 		
 		//Right panel//
 		JPanel rightPanel = new JPanel( new GridLayout( 2, 1 ) );
