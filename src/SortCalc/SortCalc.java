@@ -51,17 +51,17 @@ class SortFrame extends JFrame implements ItemListener
 	JList<String> results;
 	DefaultListModel<String> resmodel;
 	
-	JCheckBox BubbleSort;
-	JCheckBox InsertionSort;
-	JCheckBox SelectionSort;
+	JCheckBox bubbleSort;
+	JCheckBox insertionSort;
+	JCheckBox selectionSort;
 	
 	Sorter sorter = new Sorter();
 	
 	JTextArea generatedArrayField;
 	JTextArea sortedArrayField;
 	
-	JTextField SeedField;
-	JTextField QuantityField;
+	JTextField seedField;
+	JTextField quantityField;
 	
 	SortFrame()
 	{
@@ -71,80 +71,80 @@ class SortFrame extends JFrame implements ItemListener
 		//Left panel//
 		
 		//Making panel with choices
-		JPanel ChoicePanel = new JPanel( new GridLayout(1, 3) );
-		Border ChPanEtched = BorderFactory.createEtchedBorder();
-		Border ChPanTitled = BorderFactory.createTitledBorder( ChPanEtched, "Select sorting types" );
-		ChoicePanel.setBorder( ChPanTitled );
+		JPanel choicePanel = new JPanel( new GridLayout(1, 3) );
+		Border chPanEtched = BorderFactory.createEtchedBorder();
+		Border chPanTitled = BorderFactory.createTitledBorder( chPanEtched, "Select sorting types" );
+		choicePanel.setBorder( chPanTitled );
 		
 		//Making check boxes
-		BubbleSort = new JCheckBox( "Bubble Sort" );
-		BubbleSort.addItemListener( this );
-		ChoicePanel.add( BubbleSort );
+		bubbleSort = new JCheckBox( "Bubble Sort" );
+		bubbleSort.addItemListener( this );
+		choicePanel.add( bubbleSort );
 		//
-		InsertionSort = new JCheckBox( "Insertion Sort" );
-		InsertionSort.addItemListener( this );
-		ChoicePanel.add( InsertionSort );
+		insertionSort = new JCheckBox( "Insertion Sort" );
+		insertionSort.addItemListener( this );
+		choicePanel.add( insertionSort );
 		//
-		SelectionSort = new JCheckBox( "Selection Sort" );
-		SelectionSort.addItemListener( this );
-		ChoicePanel.add( SelectionSort );
+		selectionSort = new JCheckBox( "Selection Sort" );
+		selectionSort.addItemListener( this );
+		choicePanel.add( selectionSort );
 		//
 		
 		//Making list with results
 		resmodel = new DefaultListModel<String>();
 		results = new JList<String>( resmodel );
 		JScrollPane resultsSc = new JScrollPane( results );
-		Border ResListTitle = BorderFactory.createTitledBorder( ChPanEtched, "Results" );
-		resultsSc.setBorder( ResListTitle );
+		Border resListTitle = BorderFactory.createTitledBorder( chPanEtched, "Results" );
+		resultsSc.setBorder( resListTitle );
 		
 		//Making "Sort" button
-		JButton SortButton = new JButton( "Sort" );
-		SortButton.addActionListener( new SortAction() );
+		JButton sortButton = new JButton( "Sort" );
+		sortButton.addActionListener( new SortAction() );
 		
 		//Making panel with seed, quantity and "generate" button
-		JPanel GenPanel = new JPanel( new GridLayout(1, 3) );
-		Border GenPanTitle = BorderFactory.createTitledBorder( ChPanEtched, "Generate array for sorting purposes" );
-		GenPanel.setBorder( GenPanTitle );
+		JPanel genPanel = new JPanel( new GridLayout(1, 3) );
+		Border genPanTitle = BorderFactory.createTitledBorder( chPanEtched, "Generate array for sorting purposes" );
+		genPanel.setBorder( genPanTitle );
 		
 
-		SeedField = new JTextField();
-		Border SeedFieldTitle = BorderFactory.createTitledBorder( ChPanEtched, "Enter seed" );
-		SeedField.setBorder( SeedFieldTitle );
+		seedField = new JTextField();
+		Border seedFieldTitle = BorderFactory.createTitledBorder( chPanEtched, "Enter seed" );
+		seedField.setBorder( seedFieldTitle );
 		
-		QuantityField = new JTextField();
-		Border QuantityFieldTitle = BorderFactory.createTitledBorder( ChPanEtched, "Enter array size" );
-		QuantityField.setBorder( QuantityFieldTitle );
+		quantityField = new JTextField();
+		Border quantityFieldTitle = BorderFactory.createTitledBorder( chPanEtched, "Enter array size" );
+		quantityField.setBorder( quantityFieldTitle );
 		
-		JButton GenerateButton = new JButton( "Generate" );
-		GenerateButton.addActionListener( new GenerateAction() );
+		JButton generateButton = new JButton( "Generate" );
+		generateButton.addActionListener( new GenerateAction() );
 
-		GenPanel.add( SeedField );
-		GenPanel.add( QuantityField );
-		GenPanel.add( GenerateButton );
+		genPanel.add( seedField );
+		genPanel.add( quantityField );
+		genPanel.add( generateButton );
 		
 		//Making left panel
 		JPanel leftPanel = new JPanel( new GridLayout( 4, 1 ) );
 		
-		leftPanel.add(GenPanel);
-		leftPanel.add(ChoicePanel);
-		leftPanel.add(SortButton);
+		leftPanel.add(genPanel);
+		leftPanel.add(choicePanel);
+		leftPanel.add(sortButton);
 		leftPanel.add(resultsSc);
 		
 		//Right panel//
 		JPanel rightPanel = new JPanel( new GridLayout( 2, 1 ) );
 		
-		Border GenArrTitle = BorderFactory.createTitledBorder( ChPanEtched, "Generated array" );
-		Border SortArrTitle = BorderFactory.createTitledBorder( ChPanEtched, "Sorted array" );
+		Border genArrTitle = BorderFactory.createTitledBorder( chPanEtched, "Generated array" );
+		Border sortArrTitle = BorderFactory.createTitledBorder( chPanEtched, "Sorted array" );
 		
 		generatedArrayField = new JTextArea();
 		generatedArrayField.setEditable(false);
 		JScrollPane generatedArrayFieldSc = new JScrollPane( generatedArrayField );
-		generatedArrayFieldSc.setBorder( GenArrTitle );
+		generatedArrayFieldSc.setBorder( genArrTitle );
 		
 		sortedArrayField = new JTextArea();
 		sortedArrayField.setEditable(false);
 		JScrollPane sortedArrayFieldSc = new JScrollPane( sortedArrayField );
-		sortedArrayFieldSc.setBorder( SortArrTitle );
+		sortedArrayFieldSc.setBorder( sortArrTitle );
 		
 		rightPanel.add( generatedArrayFieldSc );
 		rightPanel.add( sortedArrayFieldSc );
@@ -157,8 +157,8 @@ class SortFrame extends JFrame implements ItemListener
 	{
 		public void actionPerformed( ActionEvent event )
 		{
-			String seed = SeedField.getText();
-			String size = QuantityField.getText();
+			String seed = seedField.getText();
+			String size = quantityField.getText();
 			try
 			{
 				int seedInt = Integer.parseInt( seed );
@@ -196,22 +196,22 @@ class SortFrame extends JFrame implements ItemListener
 		
 		if( e.getStateChange() == ItemEvent.SELECTED )
 		{
-			if( source == BubbleSort )
+			if( source == bubbleSort )
 				resmodel.addElement( "Bubble Sort: " );
-			else if( source == InsertionSort )
+			else if( source == insertionSort )
 				resmodel.addElement( "Insertion Sort: " );
-			else if( source == SelectionSort )
+			else if( source == selectionSort )
 				resmodel.addElement( "Selection Sort: " );
 		}
 		
 		
 		if( e.getStateChange() == ItemEvent.DESELECTED )
 		{
-			if( source == BubbleSort )
+			if( source == bubbleSort )
 				resmodel.remove(find("Bubble Sort: "));
-			else if( source == InsertionSort )
+			else if( source == insertionSort )
 				resmodel.remove(find("Insertion Sort: "));
-			else if( source == SelectionSort )
+			else if( source == selectionSort )
 				resmodel.remove(find("Selection Sort: "));
 		}
 	}
